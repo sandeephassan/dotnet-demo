@@ -3,25 +3,17 @@ name: .NET Console CI
 on:
   push:
     branches: [main, master]
-    paths:
-      - 'dotnet-demo/**'
-      - '.github/workflows/dotnet-build.yml'
 
   pull_request:
     branches: [main, master]
-    paths:
-      - 'dotnet-demo/**'
-      - '.github/workflows/dotnet-build.yml'
 
   workflow_dispatch:
 
 jobs:
   build-and-run:
-
     runs-on: self-hosted
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -31,10 +23,10 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore dotnet-demo/dotnet-demo.csproj
+        run: dotnet restore
 
       - name: Build application
-        run: dotnet build dotnet-demo/dotnet-demo.csproj --configuration Release --no-restore
+        run: dotnet build --configuration Release --no-restore
 
       - name: Run application
-        run: dotnet run --project dotnet-demo/dotnet-demo.csproj --configuration Release --no-build
+        run: dotnet run --configuration Release --no-build
